@@ -28,30 +28,30 @@ module.exports.sendTestApi = (req,res) => {
     res.json(object);
 }
 
-module.exports.sendTestXML = (req,res) => {
-    var xmldata = '<?xml version=”1.0" encoding=”UTF-8"?>' +
-    '<Student>' +
-        '<PersonalInformation>' +
-            '<FirstName>Sravan</FirstName>' +
-            '<LastName>Kumar</LastName>' +
-            '<Gender>Male</Gender>' +
-        '</PersonalInformation>' +
-        '<PersonalInformation>' +
-            '<FirstName>Sudheer</FirstName>' +
-            '<LastName>Bandlamudi</LastName>' +
-            '<Gender>Male</Gender>' +
-        '</PersonalInformation>' +
-    '</Student>';
+// module.exports.sendTestXML = (req,res) => {
+//     var xmldata = '<?xml version=”1.0" encoding=”UTF-8"?>' +
+//     '<Student>' +
+//         '<PersonalInformation>' +
+//             '<FirstName>Sravan</FirstName>' +
+//             '<LastName>Kumar</LastName>' +
+//             '<Gender>Male</Gender>' +
+//         '</PersonalInformation>' +
+//         '<PersonalInformation>' +
+//             '<FirstName>Sudheer</FirstName>' +
+//             '<LastName>Bandlamudi</LastName>' +
+//             '<Gender>Male</Gender>' +
+//         '</PersonalInformation>' +
+//     '</Student>';
 
-    parseString(xmldata, (err, result) => {
-        if(err){
-            console.log('GRESKA', err);
-        }
+//     parseString(xmldata, (err, result) => {
+//         if(err){
+//             console.log('GRESKA', err);
+//         }
 
-        let temp = JSON.stringify(result);
-        res.json(temp);
-    }); 
-}
+//         let temp = JSON.stringify(result);
+//         res.json(temp);
+//     }); 
+// }
 
 module.exports.sendXML1 = async (req,res) => {
     const f = (result) => {
