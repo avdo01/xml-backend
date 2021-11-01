@@ -1,7 +1,7 @@
 const express = require('express');
 const router = require('./router/router');
 const app = express();
-const port = 57416;
+const port = process.env.PORT || 9000;
 
 app.use(router);
 
