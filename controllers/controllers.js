@@ -4,10 +4,21 @@ const https = require('https');
 const xml2js = require('xml2js');
 const parser = new xml2js.Parser();
 const { parseString } = require('xml2js');
+const { getXMLFileFromLink } = require('../functions/functions');
+
+module.exports.homeRouteApi = (req,res) => {
+    const homeObject = {
+        route: '/',
+        content: {
+            project: 'MBP',
+            author: 'avdo',
+        }
+    }
+
+    res.json(homeObject);
+}
 
 module.exports.sendTestApi = (req,res) => {
-    console.log('URL', req.url);
-
     const object = {
         email: "email@email.com",
         user: "MBP",
@@ -32,7 +43,6 @@ module.exports.sendTestXML = (req,res) => {
         '</PersonalInformation>' +
     '</Student>';
 
-    console.log('URL:',req.url);
     parseString(xmldata, (err, result) => {
         if(err){
             console.log('GRESKA', err);
@@ -43,36 +53,65 @@ module.exports.sendTestXML = (req,res) => {
     }); 
 }
 
-module.exports.sendRealXML = async (req,res) => {
-    console.log('URL:',req.url);
-    var xmlFile;
-
+module.exports.sendXML1 = async (req,res) => {
     const f = (result) => {
         if(result){
-            xmlFile = result;
-            res.json(xmlFile);
+            res.json(result);
         }
     }
 
-    await parser.on('error', function(err) { console.log('Parser error', err); });
+    // ​Daily Treasury Yield Curve Rates
 
-    var data = '';
-    const file = await https.get('https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Datasets/real_ltcompositeindex.xml', function(res) {
-        if (res.statusCode >= 200 && res.statusCode < 400) {
-          res.on('data', function(data_) { data += data_.toString(); });
-          res.on('end', function() {
-            console.log('data', data);
-            parser.parseString(data, function(err, result) {
-              console.log('FINISHED', err, result);
-              f(result);
-            });
-          });
-        }
-      });
-    
-    
-    // res.json(file);
-    // console.log('XML data:', xmlFile);
-    // res.json(xmlFile);
+    getXMLFileFromLink('https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Datasets/yield.xml', f);
 }
+
+module.exports.sendXML2 = async (req,res) => {
+    const f = (result) => {
+        if(result){
+            res.json(result);
+        }
+    }
+
+    // Daily Treasury Real Yield Curve Rates
+
+
+    getXMLFileFromLink('https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Datasets/real_yield.xml', f);
+}
+
+module.exports.sendXML3 = async (req,res) => {
+    const f = (result) => {
+        if(result){
+            res.json(result);
+        }
+    }
+
+    // Daily Treasury Bill Rates
+
+    getXMLFileFromLink('https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Datasets/daily_treas_bill_rates.xml', f);
+}
+
+module.exports.sendXML4 = async (req,res) => {
+    const f = (result) => {
+        if(result){
+            res.json(result);
+        }
+    }
+
+    // Daily Treasury Long-Term Rates and Extrapolation Factors
+
+    getXMLFileFromLink('https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Datasets/ltcompositeindex.xml', f);
+}
+
+module.exports.sendXML5 = async (req,res) => {
+    const f = (result) => {
+        if(result){
+            res.json(result);
+        }
+    }
+
+    // Daily Treasury Real Long-Term Rate Averages
+
+    getXMLFileFromLink('https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Datasets/real_ltcompositeindex.xml', f);
+}
+
 
